@@ -1,0 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+
+/*Nav bar*/
+
+#clear-btn, #new-btn {
+  margin-left: 5px;
+}
