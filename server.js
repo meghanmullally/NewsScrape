@@ -40,3 +40,24 @@ mongoose.connect("mongodb://localhost/unit18Populater", {
 
 // Routes 
 
+app.get("/scrape", (req, res) => {
+  // grab the body fo the html with axios 
+  axios.get("https://medium.com/topic/technology").then(response => {
+  // load into cheerio and save it to $ for a shorthand selector 
+  var $ = cheerio.load(response.data);
+  
+  // we grab every h3 in the section class
+  $("section h3").each((i, element) => {
+ 
+    // save an empty result object 
+    var result = {};
+
+    // add the text and href of every link, and save properties of the result object 
+
+    
+
+  }) 
+  
+  
+  })
+})
