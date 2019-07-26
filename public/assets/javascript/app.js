@@ -7,6 +7,14 @@ $.getJSON("/articles", function(data) {
   }
 });
 
+$(document).on("click", function(event){
+// grab article link "save"
+var thisId = $(this).attr("data-id");
+console.log(thisId);
+// put it in the /saved 
+
+
+});
 
 
   
