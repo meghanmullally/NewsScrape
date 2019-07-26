@@ -1,0 +1,32 @@
+<!--Saved Articles Page-->
+<div class="container-fluid saved-container">
+  {{!-- {{#if articles}}
+  {{#each articles}} --}}
+  <div class="card">
+    <div class="card-header text-center" id="card-header">
+      <h3>{{this.title}}</h3>
+    </div>
+    <div class="card-body text-center" id="card-body">
+      <h4>
+        <a href="{{this.link}}">{{this.link}}</a>
+      </h4>
+      <p>{{this.summary}}</p>
+      <br>
+      <button type="button" class="btn btn-success addNote" data-toggle="modal" data-target="#noteModal{{this._id}}"
+        data-id={{this._id}}>View/Add Note</button>
+      <button type="button" class="btn btn-danger delete" data-id={{this._id}}>Delete</button>
+
+    </div>
+  </div>
+  {{!-- {{/each}}
+  {{else}} --}}
+  <div class="container-fluid article-container">
+
+    <div class='alert alert-warning text-center' id="alert">
+      <h4>You have no saved articles.</h4>
+    </div>
+  </div>
+  {{!-- {{/if}} --}}
+</div>
+</div>
+

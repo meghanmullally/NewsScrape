@@ -2,8 +2,107 @@
   box-sizing: border-box;
 }
 
+body {
+  margin-bottom: 75px;
+  background: black;
+  /* background-image: url("../img/photo-1461994319301-06e2de6207c3.jpeg"); */
+  font-family: 'Roboto Slab', serif;
+}
+
+.jumbotron {
+  position: relative;
+  width: 100%;
+  height: 510px;
+  padding: 0;
+}
+
+.jumbotron .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(#332, black);
+  opacity: 0.6;
+  z-index: auto;
+}
+
+.jumbotron .background-image {
+  height: 100%;
+  background-image: url("../img/tech-pexels-news.jpeg");
+  background-size: cover;
+}
+
+.jumbotron .caption {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  text-align: center;
+}
+
+.jumbotron .caption h1,
+.jumbotron .caption p {
+  color: whitesmoke;
+}
+
+.jumbotron h1 {
+  font-size: 90px;
+  font-weight: 815;
+}
+
+.jumbotron p {
+  font-size: 35px;
+}
+
 /*Nav bar*/
 
 #clear-btn, #new-btn {
-  margin-left: 5px;
+  margin-left: 10px;
+  padding: 10px;
+}
+
+/*Article and card*/
+
+.article-container {
+  padding-bottom: 15px;
+}
+
+#alert {
+  background: grey;
+  color: white;
+  border: 0;
+  margin: 18px;
+}
+
+.card {
+  margin: 20px;
+}
+
+#card-header {
+  position: relative;
+  padding-top: 26px;
+  padding-bottom: 30px;
+}
+
+#card-header h3 {
+  color: black;
+}
+
+#card-body {
+  font-size: 18px;
+}
+
+/*Footer*/
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 5px;
+  margin: 0;
+}
+
+.footer p {
+  color: white;
 }

@@ -1,6 +1,12 @@
+//Dependencies 
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var exphbs = require("express-handlebars");
+var path = require('path');
+
+// var apiRoutes = require("./routes/apiRoutes");
+// var htmlRoutes = require("./routes/htmlRoutes");
 
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
@@ -32,29 +38,59 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 
 mongoose.connect(MONGODB_URI);
 
-// Routes 
+
+app.engine("handlebars", exphbs({
+  defaultLayout: "main",
+  partialsDir: path.join(__dirname, "/views/partials")
+}));
+app.set("view engine", "handlebars")
+
+// ROUTES
+
+app.get("/", (req, res) => {
+  console.log("wtheck yo");
+  db.Article.find({
+    "saved": false
+  }, (err, data) => {
+    var handlebarsObj = {
+      article: data
+    };
+    console.log(handlebarsObj);
+    res.render("home", handlebarsObj)
+  
+  });
+});
+
+app.get('/saved', (req, res) => {
+  db.Article.find({
+    "saved": true
+  }, (err, data) => {
+    var handlebarsObj = {
+      article: data
+    };
+    console.log(handlebarsObj);
+    res.render("saved", handlebarsObj)
+  });
+});
 
 app.get("/scrape", (req, res) => {
-  // grab the body fo the html with axios 
-  axios.get("https://medium.com/topic/technology").then(response => {
-    // load into cheerio and save it to $ for a shorthand selector 
+  axios.get("https://medium.com/topic/technology").then(function (response) {
     var $ = cheerio.load(response.data);
-
-    // we grab every h3 in the section class
-    $("section h3").each((i, element) => {
-
-      // save an empty result object 
+    $("section div div div").each(function (i, element) {
       var result = {};
-
-      // add the text and href of every link, and save properties of the result object 
-      result.title = $(this)
-        .children("a")
-        .text();
       result.link = $(this)
+        .children("h3")
         .children("a")
         .attr("href");
-
-      // Create a new section using the `result` object built from scraping 
+      result.title = $(this)
+        .children("h3")
+        .children("a")
+        .text();
+      result.summary = $(this)
+        .children("div")
+        .children("p")
+        .children("a")
+        .text()
 
       db.Article.create(result).then((dbArticle) => {
         // view the added result in the console
@@ -72,7 +108,9 @@ app.get("/scrape", (req, res) => {
 // Route for getting all Articles from the db 
 app.get("/articles", (req, res) => {
   // grabbing every doc in the Articles Collection 
-  db.Article.find({}).then((dbArticle) => {
+  db.Article.find({
+    "saved": false
+  }).then((dbArticle) => {
     // send them back to client if successfully find Articles 
     res.json(dbArticle);
   }).catch((err) => {
@@ -82,7 +120,7 @@ app.get("/articles", (req, res) => {
 });
 
 // routes for saving / updating an Article
-app.post("/articles/:id", (req, res) => {
+app.post("api/articles/:id", (req, res) => {
   // Note was created, find one Article with an `_id` equal to the `req.params.id`
   // then we update the article to be associated with the new Note 
   // {new: true}  will tell teh query that we want to return the updated User then return the original to default 
@@ -90,9 +128,9 @@ app.post("/articles/:id", (req, res) => {
     return db.Article.findOneAndUpdate({
       _id: req.params.id
     }, {
-      note: dbNote._id
-    }, {
-      new: true
+      $set: {
+        saved: true
+      }
     });
   }).then((dbArticle) => {
     // send them back to client if successfully find Articles 
@@ -102,6 +140,48 @@ app.post("/articles/:id", (req, res) => {
     res.json(err);
   });
 });
+
+
+app.put("api/articles/saved/:id", (res, req) => {
+  db.Article.findOneAndUpdate({
+    _id: req.params.id
+  }, {
+    $set: {
+      saved: false
+    }
+  }).then((dbArticle) => {
+    res.json(dbArticle)
+  }).catch((err) => {
+    res.json(err);
+  });
+});
+
+app.get("api/articles/saved/:id", (res, req) => {
+  db.Article.findOne({
+    _id: req.params.id
+  }).populate('note').then((dbArticle) => {
+    res.json(dbArticle)
+  }).catch((err) => {
+    res.json(err);
+  });
+})
+
+app.post("api/articles/saved/:id", (req, res) => {
+  db.Note.create(req.body).then((dbNote) => {
+    return db.Article.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      note: dbNote._id
+    }, {
+      new: true
+    });
+  }).then((dbArticle) => {
+    res.json(dbArticle);
+  }).catch((err) => {
+    res.json(err);
+  });
+});
+
 
 
 // Start the server
