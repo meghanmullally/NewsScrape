@@ -86,16 +86,21 @@ body {
 
 #card-header h3 {
   color: black;
+  font-size: 24px;
 }
 
 #card-body {
   font-size: 18px;
 }
 
+#card-body a {
+  color: black;
+}
+
 /*Footer*/
 
 .footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
   right: 0;
   left: 0;

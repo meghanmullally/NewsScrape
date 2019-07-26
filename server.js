@@ -48,14 +48,14 @@ app.set("view engine", "handlebars")
 // ROUTES
 
 app.get("/", (req, res) => {
-  console.log("wtheck yo");
   db.Article.find({
-    "saved": false
+    // "saved": false
   }, (err, data) => {
+    console.log(data)
     var handlebarsObj = {
-      article: data
+      articles: data
     };
-    console.log(handlebarsObj);
+    console.log(handlebarsObj, "handlebarObj");
     res.render("home", handlebarsObj)
   
   });
@@ -66,7 +66,7 @@ app.get('/saved', (req, res) => {
     "saved": true
   }, (err, data) => {
     var handlebarsObj = {
-      article: data
+      articles: data
     };
     console.log(handlebarsObj);
     res.render("saved", handlebarsObj)
