@@ -1,42 +1,37 @@
 <!---Home page-->
 
+{{!-- container containing article-block partial info --}}
 <div class="container-fluid article-container">
 {{#each articles}} {{> article-block}} {{/each}}
-
 </div>
 
+{{!-- created a modal to alert the user if the article as been successfully saved or not  --}}
+<div class="modal" id="scrape-success" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-title"><strong>Success!</strong></h3>
+      {{!-- stands for X --}}
+      <button type="button" class="scrape-success-btn" data-dismiss="modal">&times;</button>
+    </div>
+  </div>
+</div>
+
+{{!-- modal for letting the user know there save was a success --}}
 {{!-- 
-  {{#if articles}}
-  {{#each articles}} 
-  <div class="card">
-    <div class="card-header text-center" id="card-header">
-      <h3>{{title}}</h3>
+<div class="modal" id="save-success" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-title"><strong>Success!</strong></h3>
+      {{!-- stands for X --}}
+      <button type="button" class="save-success-btn" data-dismiss="modal">&times;</button>
     </div>
-    <div class="card-body text-center" id="card-body">
-      <h4>
-        <a href="{{link}}" class="scrape-new">{{link}}</a>
-      </h4>
-        <p>
-          {{summary}}
-          </p>
-
-      <h4>
-        <button id="savearticle" data-id="{{_id}}" href="/saved">Save Article</b>
-      </h4>
+    <div class="modal-body">
+      <h7>Saved the article</h7>
     </div>
-  </div>
-  {{/each}}
-
-{{else}}
-<div class="container-fluid article-container">
-
-  <div class='alert alert-warning text-center' id="alert">
-    <h4>Uh Oh. Looks like we don't have any new articles.</h4>
-  </div>
-  {{/if}} 
   </div>
 </div> --}}
 
+{{!-- footer info --}}
 <footer class="footer">
   <div class="container">
     <p>Medium Mongo Scraper</p>
