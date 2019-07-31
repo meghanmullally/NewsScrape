@@ -13,5 +13,4 @@ var thisId = $(this).attr("data-id");
 console.log(thisId);
 // put it in the /saved 
 
-
 });
