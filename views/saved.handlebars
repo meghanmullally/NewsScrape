@@ -1,7 +1,9 @@
 <!--Saved Articles Page-->
 <div class="container-fluid saved-container">
-   {{!-- {{#if articles}}
+  {{!-- {{#if articles}}
   {{#each articles}}  --}}
+{{#each articles}} {{> article-block}} {{/each}}
+
   <div class="card">
     <div class="card-header text-center" id="card-header">
       {{!-- article title  --}}
