@@ -17,9 +17,10 @@ console.log(thisId);
 
 $(document.body).ready(function(){
 
-// saving article 
-
+// saving article on click, unsaving articles 
 $(document).on("click", ".unsavearticle", unsaveArticle);
 $(document).on("click", ".savearticle", saveArticle);
+
+
 
 })
