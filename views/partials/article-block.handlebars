@@ -9,9 +9,10 @@
       </div>
       <div class="col-lg-4">
         {{#if saved}}
-        <button class="btn btn-secondary unsavearticle" data={{_id}}>Delete</button>
+        <button class="btn btn-secondary article-notes" id="article-notes" data-id={{_id}}>Article Notes</button>
+        <button class="btn btn-secondary unsavearticle" id="unsave-article" data-id={{_id}}>Delete</button>
         {{else}}
-        <button class="btn btn-secondary savearticle" data={{_id}}>Save</button>
+        <button class="btn btn-secondary savearticle" id="save-article" data-id={{_id}}>Save</button>
         {{/if}}
       </div>
     </div>

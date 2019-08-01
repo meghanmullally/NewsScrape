@@ -143,6 +143,7 @@ app.post("api/articles/:id", (req, res) => {
 
 
 app.put("api/articles/saved/:id", (res, req) => {
+  console.log(req, "c'mon work dammit");
   db.Article.findOneAndUpdate({
     _id: req.params.id
   }, {
@@ -167,22 +168,26 @@ app.get("api/articles/saved/:id", (res, req) => {
 })
 
 app.post("api/articles/saved/:id", (req, res) => {
-  db.Note.create(req.body).then((dbNote) => {
-    return db.Article.findOneAndUpdate({
+  console.log("req yourself foo", req);
+  // db.Note.create(req.body).then((dbNote) => {
+  //   return
+db.Article.findOneAndUpdate({
       _id: req.params.id
     }, {
       note: dbNote._id
     }, {
+      saved: true
+    },{
       new: true
-    });
-  }).then((dbArticle) => {
+    })
+.then((dbArticle) => {
     res.json(dbArticle);
   }).catch((err) => {
     res.json(err);
   });
-});
+// });
 
-
+})
 
 // Start the server
 app.listen(PORT, function () {
