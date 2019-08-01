@@ -4,6 +4,7 @@
 
 This web app which scrapes articles from the Medium Technology category, and lets users leave comments on the latest articles. 
 
+[Deployed Heroku](https://scrape-me-some-news.herokuapp.com/)
 
 ## Prerequisites
 Node.js - download the latest version of Node (https://nodejs.org/en/).
