@@ -14,3 +14,12 @@ console.log(thisId);
 // put it in the /saved 
 
 });
+
+$(document.body).ready(function(){
+
+// saving article 
+
+$(document).on("click", ".unsavearticle", unsaveArticle);
+$(document).on("click", ".savearticle", saveArticle);
+
+})
